@@ -34,6 +34,7 @@ class GoClient extends Client {
                 if (file.endsWith('.js')) {
                     const command = new (require(filePath))(this)
                     this.commands.set(command.name, command)
+                    command.config.aliases.forEach(a => this.aliases.set(a, command.name));
                 }
             }
         })
