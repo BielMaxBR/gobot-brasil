@@ -1,11 +1,4 @@
-
-
-
-
-
 const Command = require('../../classes/Command.js')
-
-
 
 class Ping extends Command {
     constructor(client) {
