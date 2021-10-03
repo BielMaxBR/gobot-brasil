@@ -22,9 +22,8 @@ class Docs extends Command {
         console.log(data)
         
         const embed = new MessageEmbed()
-            .setColor("blue")
-            .setTitle("reboleitchon")
-            
+        embed.setTitle("reboleitchon")
+        
         message.channel.send(embed)
     }
 }
