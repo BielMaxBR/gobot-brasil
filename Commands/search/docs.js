@@ -19,8 +19,13 @@ class Docs extends Command {
         const request = await fetch(url + query)
         const json = await request.json()
         const data = json.results[0]
+        console.log(data)
         
-        const embed
+        const embed = new MessageEmbed()
+            .setColor("blue")
+            .setTitle("reboleitchon")
+            
+        message.channel.send(embed)
     }
 }
 export default Docs
