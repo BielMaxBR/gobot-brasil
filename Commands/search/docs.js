@@ -22,8 +22,9 @@ class Docs extends Command {
         console.log(data)
         
         const embed = new MessageEmbed()
-        embed.setTitle("reboleitchon")
+        embed.setTitle(data.title)
         
+        message.channel.send("coletado")
         message.channel.send(embed)
     }
 }
