@@ -1,5 +1,5 @@
-const { Client, Collection } = require("discord.js")
-const { readdir, lstatSync } = require("fs");
+import { Client, Collection } from "discord.js";
+import { readdir, lstatSync } from "fs";
 
 class GoClient extends Client {
     constructor(options) {
@@ -16,7 +16,7 @@ class GoClient extends Client {
     }
 
     loadCommands(dir) {
-        readdir(dir, (err, files) => {
+        readdir(dir, async (err, files) => {
             if (err) {
                 console.error(err)
                 return
@@ -32,7 +32,8 @@ class GoClient extends Client {
                 }
 
                 if (file.endsWith('.js')) {
-                    const command = new (require(filePath))(this)
+                    const imported = await import(filePath)
+                    const command = new imported.default(this)
                     this.commands.set(command.name, command)
                     command.config.aliases.forEach(a => this.aliases.set(a, command.name));
                 }
@@ -40,7 +41,7 @@ class GoClient extends Client {
         })
     }
     loadEvents(dir) {
-        readdir(dir, (err, files) => {
+        readdir(dir, async (err, files) => {
             if (err) {
                 console.error(err)
                 return
@@ -56,7 +57,8 @@ class GoClient extends Client {
                 }
 
                 if (file.endsWith('.js')) {
-                    const event = new (require(filePath))(this)
+                    const imported = await import(filePath)
+                    const event = new imported.default(this)
 
                     super.on(file.split(".")[0], (...args) => event.run(...args));
                 }
@@ -65,4 +67,4 @@ class GoClient extends Client {
     }
 }
 
-module.exports = GoClient
+export default GoClient

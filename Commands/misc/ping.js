@@ -1,4 +1,4 @@
-const Command = require('../../classes/Command.js')
+import Command from '../../classes/Command.js';
 
 class Ping extends Command {
     constructor(client) {
@@ -15,4 +15,4 @@ class Ping extends Command {
     }
 }
 
-module.exports = Ping
+export default Ping

@@ -1,4 +1,5 @@
-require('dotenv').config()
+import dotenv from 'dotenv'
+dotenv.config()
 
 class Message {
     constructor(client) {
@@ -17,4 +18,4 @@ class Message {
     }
 }
 
-module.exports = Message
+export default Message

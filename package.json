@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon --trace-warnings index.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,11 @@
   },
   "homepage": "https://github.com/BielMaxBR/gobot-brasil#readme",
   "dependencies": {
+    "dirname-filename-esm": "^1.1.1",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "node": "16.6.1",
+    "node-fetch": "^3.0.0",
     "nodemon": "^2.0.13"
   }
 }
