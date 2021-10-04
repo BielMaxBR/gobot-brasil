@@ -5,7 +5,8 @@ class Ping extends Command {
         super(client, {
             name: "ping",
             aliases: ['pg'],
-            description: "mostra o delay com o servidor do bot"
+            description: "mostra o delay com o servidor do bot",
+            usage: "g!ping",
         })
     }
 

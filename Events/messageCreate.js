@@ -1,3 +1,4 @@
+import { MessageEmbed } from 'discord.js';
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -14,8 +15,13 @@ class Message {
         const cmd = this.client.getCommand(command)
         if (!cmd) return;
 
-        if(cmd.config.requireArgs && args.length == 0) {
-            message.channel.send("Esse comando requer argumentos")
+        if (cmd.config.requireArgs && args.length == 0) {
+            const embedMsg = new MessageEmbed()
+                .setTitle("Modo de usar")
+                .setColor("#2596be")
+                .setDescription(`${cmd.help.usage}`)
+
+            message.channel.send({ embeds: [embedMsg] })
             return
         }
 

@@ -7,6 +7,7 @@ class Help extends Command {
             name: "help",
             aliases: ['hp'],
             description: "mostra como funcionam os comandos",
+            usage: "g!help <comando> || g!help",
             requireArgs: false
         })
     }
@@ -20,7 +21,7 @@ class Help extends Command {
                 const field = {}
 
                 field.name = command.help.name
-                field.value = `aliases: ${command.config.aliases.join(", ")}\n${command.help.description}`
+                field.value = `aliases: ${command.config.aliases.join(", ")}\n\Modo de usar : ${command.help.usage}\n${command.help.description}`
                 fields.push(field)
             }
 
@@ -46,8 +47,8 @@ class Help extends Command {
             .setTitle(command.help.name)
             .setColor("#2596be")
             .setDescription(command.help.description)
-            .addField("aliases", command.config.aliases.join(", "))
-
+            .addField("Aliases", command.config.aliases.join(", "))
+            .addField("Modo de usar", `${command.help.usage}`)
 
         message.channel.send({ embeds: [embedMsg] })
     }
