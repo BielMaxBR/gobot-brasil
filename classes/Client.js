@@ -14,6 +14,10 @@ class GoClient extends Client {
         super.login(token)
     }
 
+    getCommand(value) {
+        return this.commands.get(value) || this.commands.get(this.aliases.get(value));
+    }
+
     loadCommands(dir) {
         readdir(dir, async (err, files) => {
             if (err) {
@@ -33,8 +37,8 @@ class GoClient extends Client {
                 if (file.endsWith('.js')) {
                     const imported = await import(filePath)
                     const command = new imported.default(this)
-                    this.commands.set(command.name, command)
-                    command.config.aliases.forEach(a => this.aliases.set(a, command.name));
+                    this.commands.set(command.help.name, command)
+                    command.config.aliases.forEach(a => this.aliases.set(a, command.help.name));
                 }
             }
         })

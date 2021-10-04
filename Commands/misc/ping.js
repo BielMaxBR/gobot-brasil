@@ -4,7 +4,8 @@ class Ping extends Command {
     constructor(client) {
         super(client, {
             name: "ping",
-            aliases: ['pg']
+            aliases: ['pg'],
+            description: "mostra o delay com o servidor do bot"
         })
     }
 
