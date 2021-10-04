@@ -7,15 +7,36 @@ class Help extends Command {
             name: "help",
             aliases: ['hp'],
             description: "mostra como funcionam os comandos",
-            requireArgs: true
+            requireArgs: false
         })
     }
 
     run(message, args) {
+        if (args.length == 0) {
+            const commands = this.client.commands.values()
+            const fields = []
+
+            for (const command of commands) {
+                const field = {}
+
+                field.name = command.help.name
+                field.value = `aliases: ${command.config.aliases.join(", ")}\n${command.help.description}`
+                fields.push(field)
+            }
+
+            const embedMsg = new MessageEmbed()
+                .setTitle("Comandos")
+                .setColor("#2596be")
+                .addFields(fields)
+
+
+            message.channel.send({ embeds: [embedMsg] })
+            return
+        }
         const searchParam = args.join(" ").toLowerCase()
 
         const command = this.client.getCommand(searchParam)
-        
+
         if (command === undefined) {
             message.channel.send("comando não encontrado")
             return
@@ -25,8 +46,8 @@ class Help extends Command {
             .setTitle(command.help.name)
             .setColor("#2596be")
             .setDescription(command.help.description)
-            .addField("aliases",command.config.aliases.join(", "))
-            
+            .addField("aliases", command.config.aliases.join(", "))
+
 
         message.channel.send({ embeds: [embedMsg] })
     }

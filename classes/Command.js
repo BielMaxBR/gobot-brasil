@@ -4,7 +4,7 @@ class Command {
 
         this.help = {
             name: options.name || 'null',
-            description: options.description || ''
+            description: options.description || 'ainda não temos uma descrição para esta função'
         }
 
         this.config = {
