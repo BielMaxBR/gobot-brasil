@@ -11,10 +11,19 @@ class Message {
 
         const args = message.content.split(/\s+/g);
         const command = args.shift().slice(process.env.PREFIX.length);
-        const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
-
+        const cmd = this.client.getCommand(command)
         if (!cmd) return;
-        cmd.run(message, args);
+
+        if(cmd.config.requireArgs && args.length == 0) {
+            message.channel.send("Esse comando requer argumentos")
+            return
+        }
+
+        try {
+            cmd.run(message, args);
+        } catch (err) {
+            console.error(err)
+        }
     }
 }
 

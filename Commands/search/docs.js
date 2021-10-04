@@ -7,11 +7,15 @@ class Docs extends Command {
     constructor(client) {
         super(client, {
             name: "docs",
-            aliases: ['dc']
+            aliases: ['dc'],
+            description: 'pesquisa na documentação atual pt-br da godot',
+            requireArgs: true,
         })
     }
 
     async run(message, args) {
+
+
         const search = args.join("+")
         const url = "https://docs.godotengine.org/_/api/v2/search/?"
         const query = `q=${search}&project=godot-pt-br&version=stable&language=pt_BR`
@@ -29,12 +33,14 @@ class Docs extends Command {
 
         let fields = []
 
-        for (const blocks of data.blocks) {
+        for (const block of data.blocks) {
+            if (block.content.length == 0) continue
+
             const field = {}
 
-            field.name = blocks.title
+            field.name = block.title
 
-            const contentArray = blocks.content.split(" ")
+            const contentArray = block.content.split(" ")
             field.value = contentArray.slice(0, 50).join(" ")
             field.value = field.value + (contentArray.length >= 50 ? "..." : "")
 
@@ -43,7 +49,7 @@ class Docs extends Command {
 
         const embedMsg = new MessageEmbed()
             .setTitle(data.title)
-            .setColor("BLUE")
+            .setColor("#2596be")
             .setThumbnail("https://docs.godotengine.org/en/stable/_static/docs_logo.png")
             .setURL(data.domain + data.path)
             .setFields(fields)
