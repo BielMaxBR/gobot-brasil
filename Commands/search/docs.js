@@ -9,7 +9,8 @@ class Docs extends Command {
             name: "docs",
             aliases: ['dc'],
             description: 'pesquisa na documentação atual pt-br da godot',
-            requireArgs: true,
+            usage: "g!docs <argumento>",
+            requireArgs: true
         })
     }
 
