@@ -20,12 +20,36 @@ class Docs extends Command {
         const json = await request.json()
         const data = json.results[0]
         console.log(data)
-        
-        const embed = new MessageEmbed()
-        embed.setTitle(data.title)
-        
-        message.channel.send("coletado")
-        message.channel.send(embed)
+
+        if (data === undefined) {
+            message.channel.send("nada encontrado. veja se a sua ortografia está correta")
+            return
+        }
+
+
+        let fields = []
+
+        for (const blocks of data.blocks) {
+            const field = {}
+
+            field.name = blocks.title
+
+            const contentArray = blocks.content.split(" ")
+            field.value = contentArray.slice(0, 50).join(" ")
+            field.value = field.value + (contentArray.length >= 50 ? "..." : "")
+
+            fields.push(field)
+        }
+
+        const embedMsg = new MessageEmbed()
+            .setTitle(data.title)
+            .setColor("BLUE")
+            .setThumbnail("https://docs.godotengine.org/en/stable/_static/docs_logo.png")
+            .setURL(data.domain + data.path)
+            .setFields(fields)
+            .setFooter(`version: ${data.version} \n\Coletado direto da doc: https://docs.godotengine.org/`)
+
+        message.channel.send({ embeds: [embedMsg] })
     }
 }
 export default Docs

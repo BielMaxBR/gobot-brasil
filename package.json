@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon --trace-warnings index.js"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
