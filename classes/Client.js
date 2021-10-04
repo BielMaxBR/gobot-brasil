@@ -8,7 +8,6 @@ class GoClient extends Client {
         this.commands = new Collection() 
         this.aliases = new Collection()
         this.events = new Collection()
-        
     }
 
     login(token) {
