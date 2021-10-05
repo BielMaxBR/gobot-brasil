@@ -16,8 +16,8 @@ class Message {
         if (!cmd) return;
 
         if (args.length == 0) {
-            console.log(cmd.config.defaultMessage == "" || cmd.config.requireArgs)
-            if (cmd.config.defaultMessage == "" || cmd.config.requireArgs) {
+            console.log(cmd.config.defaultMessage == "" && cmd.config.requireArgs)
+            if (cmd.config.defaultMessage == "" && cmd.config.requireArgs) {
                 const embedMsg = new MessageEmbed()
                     .setTitle("Modo de usar")
                     .setColor("#2596be")
