@@ -15,8 +15,8 @@ class Message {
         const cmd = this.client.getCommand(command)
         if (!cmd) return;
 
-        if (cmd.config.requireArgs && args.length == 0) {
-            if (cmd.config.defaultMessage === undefined) {
+        if (cmd.config.defaultMessage != undefined && args.length == 0) {
+            if (cmd.config.requireArgs) {
                 const embedMsg = new MessageEmbed()
                     .setTitle("Modo de usar")
                     .setColor("#2596be")
