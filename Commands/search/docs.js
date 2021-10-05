@@ -23,7 +23,6 @@ class Docs extends Command {
         const request = await fetch(url + query)
         const json = await request.json()
         const data = json.results[0]
-        console.log(data)
 
         if (data === undefined) {
             message.channel.send("nada encontrado. veja se a sua ortografia está correta")
