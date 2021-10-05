@@ -23,10 +23,12 @@ class Message {
                     .setDescription(`${cmd.help.usage}`)
 
                 message.channel.send({ embeds: [embedMsg] })
-            } else {
+                return
+                
+            } else if(cmd.config.defaultMessage != undefined){
                 message.channel.send(cmd.config.defaultMessage)
+                return
             }
-            return
         }
 
         try {
