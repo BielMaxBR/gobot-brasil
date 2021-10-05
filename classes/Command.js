@@ -14,7 +14,7 @@ class Command {
             aliases: options.aliases || [],
             allowDMs: options.allowDMs || false,
             requireArgs: options.requireArgs || false,
-            defaultMessage: options.defaultMessage || undefined
+            defaultMessage: options.defaultMessage || ""
         };
     }
 }
