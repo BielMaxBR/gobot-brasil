@@ -15,14 +15,21 @@ class Message {
         const cmd = this.client.getCommand(command)
         if (!cmd) return;
 
-        if (cmd.config.requireArgs && args.length == 0) {
-            const embedMsg = new MessageEmbed()
-                .setTitle("Modo de usar")
-                .setColor("#2596be")
-                .setDescription(`${cmd.help.usage}`)
+        if (args.length == 0) {
+            console.log(cmd.config.defaultMessage == "" && cmd.config.requireArgs)
+            if (cmd.config.defaultMessage == "" && cmd.config.requireArgs) {
+                const embedMsg = new MessageEmbed()
+                    .setTitle("Modo de usar")
+                    .setColor("#2596be")
+                    .setDescription(`${cmd.help.usage}`)
 
-            message.channel.send({ embeds: [embedMsg] })
-            return
+                message.channel.send({ embeds: [embedMsg] })
+                return
+                
+            } else if(cmd.config.defaultMessage.length > 0){
+                message.channel.send(cmd.config.defaultMessage)
+                return
+            }
         }
 
         try {

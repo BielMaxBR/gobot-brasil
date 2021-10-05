@@ -13,7 +13,8 @@ class Command {
             permission: options.permission || "SEND_MESSAGES",
             aliases: options.aliases || [],
             allowDMs: options.allowDMs || false,
-            requireArgs: options.requireArgs || false
+            requireArgs: options.requireArgs || false,
+            defaultMessage: options.defaultMessage || ""
         };
     }
 }
