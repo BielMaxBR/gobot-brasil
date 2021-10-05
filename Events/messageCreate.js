@@ -16,12 +16,16 @@ class Message {
         if (!cmd) return;
 
         if (cmd.config.requireArgs && args.length == 0) {
-            const embedMsg = new MessageEmbed()
-                .setTitle("Modo de usar")
-                .setColor("#2596be")
-                .setDescription(`${cmd.help.usage}`)
+            if (cmd.config.defaultMessage === undefined) {
+                const embedMsg = new MessageEmbed()
+                    .setTitle("Modo de usar")
+                    .setColor("#2596be")
+                    .setDescription(`${cmd.help.usage}`)
 
-            message.channel.send({ embeds: [embedMsg] })
+                message.channel.send({ embeds: [embedMsg] })
+            } else {
+                message.channel.send(cmd.config.defaultMessage)
+            }
             return
         }
 

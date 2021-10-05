@@ -10,13 +10,12 @@ class Docs extends Command {
             aliases: ['dc'],
             description: 'pesquisa na documentação atual pt-br da godot',
             usage: "g!docs <argumento>",
-            requireArgs: true
+            requireArgs: true,
+            defaultMessage: "Documentação atual da godot engine:\n\nhttps://docs.godotengine.org/pt_BR/stable/index.html"
         })
     }
 
     async run(message, args) {
-
-
         const search = args.join("+")
         const url = "https://docs.godotengine.org/_/api/v2/search/?"
         const query = `q=${search}&project=godot-pt-br&version=stable&language=pt_BR`
