@@ -24,8 +24,8 @@ class Message {
 
                 message.channel.send({ embeds: [embedMsg] })
                 return
-                
-            } else if(cmd.config.defaultMessage.length > 0){
+
+            } else if (cmd.config.defaultMessage.length > 0) {
                 message.channel.send(cmd.config.defaultMessage)
                 return
             }

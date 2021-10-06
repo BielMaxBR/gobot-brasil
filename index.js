@@ -1,8 +1,10 @@
 import Client from "./classes/Client.js"
 import dotenv from 'dotenv'
 dotenv.config()
+
 import { dirname } from "dirname-filename-esm"
 const __dirname = dirname(import.meta)
+
 const client = new Client({
     intents: ['GUILDS', 'GUILD_MESSAGES']
 })
