@@ -18,12 +18,8 @@ class GoClient extends Client {
         return this.commands.get(value) || this.commands.get(this.aliases.get(value));
     }
 
-    async loadCommands(dir, first = false) {
-        let __dirname = ''
-        if (first) {
-            __dirname = pathToFileURL('./').pathname.replace('/','')
-        }
-        readdir(__dirname+dir, async (err, files) => {
+    async loadCommands(dir, root) {
+        readdir(root+'/'+dir, async (err, files) => {
             if (err) {
                 console.error(err)
                 return
@@ -34,7 +30,7 @@ class GoClient extends Client {
                 const fileStatus = lstatSync(filePath)
 
                 if (fileStatus.isDirectory()) {
-                    this.loadCommands(filePath)
+                    this.loadCommands(filePath, root)
                     continue
                 }
 
@@ -47,12 +43,8 @@ class GoClient extends Client {
             }
         })
     }
-    loadEvents(dir, first = false) {
-        let __dirname = ''
-        if (first) {
-            __dirname = pathToFileURL('./').pathname.replace('/','')
-        }
-        readdir(__dirname+dir, async (err, files) => {
+    loadEvents(dir, root) {
+        readdir(root+'/'+dir, async (err, files) => {
             if (err) {
                 console.error(err)
                 return
@@ -63,7 +55,7 @@ class GoClient extends Client {
                 const fileStatus = lstatSync(filePath)
 
                 if (fileStatus.isDirectory()) {
-                    this.loadCommands(filePath)
+                    this.loadCommands(filePath, root)
                     continue
                 }
 
