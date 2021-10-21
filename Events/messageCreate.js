@@ -16,7 +16,6 @@ class Message {
         if (!cmd) return;
 
         if (args.length == 0) {
-            console.log(cmd.config.defaultMessage == "" && cmd.config.requireArgs)
             if (cmd.config.defaultMessage == "" && cmd.config.requireArgs) {
                 const embedMsg = new MessageEmbed()
                     .setTitle("Modo de usar")
@@ -25,8 +24,8 @@ class Message {
 
                 message.channel.send({ embeds: [embedMsg] })
                 return
-                
-            } else if(cmd.config.defaultMessage.length > 0){
+
+            } else if (cmd.config.defaultMessage.length > 0) {
                 message.channel.send(cmd.config.defaultMessage)
                 return
             }
