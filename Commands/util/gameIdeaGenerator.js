@@ -220,9 +220,9 @@ class GameIdeaGenerator extends Command {
     }
 
     async run(message, args) {
-        var genre1 = rand() % (genreTags.length - 1)
-        var genre2 = rand() % (genreTags.length - 1)
-        var tag = rand() % (steamTags.length - 1)
+        var genre1 = getRandomInt(0,genreTags.length - 1)
+        var genre2 = getRandomInt(0,genreTags.length - 1)
+        var tag = getRandomInt(0,steamTags.length - 1)
 
         var embed = new MessageEmbed()
             .setTitle("O estilo do jogo é:")
@@ -230,6 +230,12 @@ class GameIdeaGenerator extends Command {
 
         message.channel.send({ embeds: [embed] })
     }
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 export default GameIdeaGenerator
