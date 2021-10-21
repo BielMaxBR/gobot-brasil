@@ -220,13 +220,20 @@ class GameIdeaGenerator extends Command {
     }
 
     async run(message, args) {
-        var genre1 = getRandomInt(0,genreTags.length - 1)
-        var genre2 = getRandomInt(0,genreTags.length - 1)
-        var tag = getRandomInt(0,steamTags.length - 1)
+        var genre1 = getRandomInt(0, genreTags.length - 1)
+        var genre2 = getRandomInt(0, genreTags.length - 1)
+        var tag = getRandomInt(0, steamTags.length - 1)
+
+        while (genre1 == genre2) {
+            genre2 = getRandomInt(0, genreTags.length - 1)
+        }
+        while (genre2 == tag) {
+            tag = getRandomInt(0, steamTags.length - 1)
+        }
 
         var embed = new MessageEmbed()
             .setTitle("O estilo do jogo é:")
-             .setColor("#2596be")
+            .setColor("#2596be")
             .setDescription(`**${genreTags[genre1]}**\n**${genreTags[genre2]}**\n**${steamTags[tag]}**`)
 
         message.channel.send({ embeds: [embed] })
