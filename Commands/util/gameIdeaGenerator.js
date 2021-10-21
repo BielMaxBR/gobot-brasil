@@ -226,6 +226,7 @@ class GameIdeaGenerator extends Command {
 
         var embed = new MessageEmbed()
             .setTitle("O estilo do jogo é:")
+             .setColor("#2596be")
             .setDescription(`**${genreTags[genre1]}**\n**${genreTags[genre2]}**\n**${steamTags[tag]}**`)
 
         message.channel.send({ embeds: [embed] })
