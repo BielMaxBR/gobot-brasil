@@ -1,5 +1,5 @@
 import { Client, Collection } from "discord.js";
-import { readdir, lstatSync } from "fs";import { pathToFileURL } from 'url'
+import { readdir, lstatSync } from "fs"; import { pathToFileURL } from 'url'
 
 class GoClient extends Client {
     constructor(options) {
@@ -15,57 +15,70 @@ class GoClient extends Client {
     }
 
     getCommand(value) {
-        return this.commands.get(value) || this.commands.get(this.aliases.get(value));
+        return this.commands.get(value) || null;
     }
 
     async loadCommands(dir, root) {
-        readdir(root+'/'+dir, async (err, files) => {
-            if (err) {
-                console.error(err)
-                return
-            }
 
-            for (const file of files) {
-                const filePath = `${dir}/${file}`
-                const fileStatus = lstatSync(filePath)
+        const loadAgain = (_dir, _root) => {
+            return new Promise((res, rej) => {
+                readdir(_root + '/' + _dir, async (err, files) => {
+                    if (err) {
+                        console.error(err)
+                        return rej()
+                    }
 
-                if (fileStatus.isDirectory()) {
-                    this.loadCommands(filePath, root)
-                    continue
-                }
+                    for (const file of files) {
+                        const filePath = `${_dir}/${file}`
+                        const fileStatus = lstatSync(filePath)
 
-                if (file.endsWith('.js')) {
-                    const imported = await import('../'+filePath)
-                    const command = new imported.default(this)
-                    this.commands.set(command.help.name, command)
-                    command.config.aliases.forEach(a => this.aliases.set(a, command.help.name));
-                }
-            }
-        })
+                        if (fileStatus.isDirectory()) {
+                            const loaded = await loadAgain(filePath, _root)
+                            if (loaded) continue
+                        }
+
+                        if (file.endsWith('.js')) {
+                            const imported = await import('../' + filePath)
+                            const command = new imported.default(this)
+                            this.commands.set(command.help.name, command)
+                        }
+                    }
+                    res()
+                })
+            })
+        }
+        return await loadAgain(dir, root)
     }
-    loadEvents(dir, root) {
-        readdir(root+'/'+dir, async (err, files) => {
-            if (err) {
-                console.error(err)
-                return
-            }
+    async loadEvents(dir, root) {
 
-            for (const file of files) {
-                const filePath = `${dir}/${file}`
-                const fileStatus = lstatSync(filePath)
+        const loadAgain = (_dir, _root) => {
+            return new Promise((res, rej) => {
+                readdir(_root + '/' + _dir, async (err, files) => {
+                    if (err) {
+                        console.error(err)
+                        return rej()
+                    }
 
-                if (fileStatus.isDirectory()) {
-                    this.loadCommands(filePath, root)
-                    continue
-                }
+                    for (const file of files) {
+                        const filePath = `${_dir}/${file}`
+                        const fileStatus = lstatSync(filePath)
 
-                if (file.endsWith('.js')) {
-                    const imported = await import('../'+filePath)
-                    const event = new imported.default(this)
-                    super.on(file.split(".")[0], (...args) => event.run(...args));
-                }
-            }
-        })
+                        if (fileStatus.isDirectory()) {
+                            const loaded = await loadAgain(filePath, _root)
+                            if (loaded) continue
+                        }
+
+                        if (file.endsWith('.js')) {
+                            const imported = await import('../' + filePath)
+                            const event = new imported.default(this)
+                            super.on(file.split(".")[0], (...args) => event.run(...args));
+                        }
+                    }
+                    res()
+                })
+            })
+        }
+        return await loadAgain(dir, root)
     }
 }
 

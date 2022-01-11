@@ -1,27 +1,28 @@
 import Command from '../../classes/Command.js';
 import { MessageEmbed } from 'discord.js'
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 class Help extends Command {
     constructor(client) {
-        super(client, {
-            name: "help",
-            aliases: ['hp'],
-            description: "mostra como funcionam os comandos",
-            usage: "g!help <comando> || g!help",
-            requireArgs: false
-        })
+        super(client, new SlashCommandBuilder()
+        .setName("help")
+        .setDescription("mostra como funcionam os comandos")
+        .addStringOption(option => option.setName('comando').setDescription("fale um comando específico"))
+        )
     }
-
-    run(message, args) {
-        if (args.length == 0) {
-            const commands = this.client.commands.values()
+    run(interaction, client) {
+        const { options } = interaction
+        const searchParam = options.getString('comando')
+        if (!searchParam) {
+            const commands = this.client.commands.toJSON()
             const fields = []
 
             for (const command of commands) {
+                if (commands.indexOf(command) >= 10) break
                 const field = {}
 
                 field.name = command.help.name
-                field.value = `aliases: ${command.config.aliases.join(", ")}\n\Modo de usar : ${command.help.usage}\n${command.help.description}`
+                field.value = command.help.description
                 fields.push(field)
             }
 
@@ -31,14 +32,12 @@ class Help extends Command {
                 .addFields(fields)
 
 
-            message.channel.send({ embeds: [embedMsg] })
+            interaction.reply({ embeds: [embedMsg] })
             return
         }
-        const searchParam = args.join(" ").toLowerCase()
+        const command = client.getCommand(searchParam)
 
-        const command = this.client.getCommand(searchParam)
-
-        if (command === undefined) {
+        if (command === null) {
             message.channel.send("comando não encontrado")
             return
         }
@@ -47,10 +46,8 @@ class Help extends Command {
             .setTitle(command.help.name)
             .setColor("#2596be")
             .setDescription(command.help.description)
-            .addField("Aliases", command.config.aliases.join(", "))
-            .addField("Modo de usar", `${command.help.usage}`)
 
-        message.channel.send({ embeds: [embedMsg] })
+        interaction.reply({ embeds: [embedMsg] })
     }
 }
 

@@ -1,22 +1,24 @@
-import { MessageEmbed } from 'discord.js'
+import { Interaction, MessageEmbed } from 'discord.js'
 import Command from '../../classes/Command.js'
 import fetch from 'node-fetch'
+import { SlashCommandBuilder } from '@discordjs/builders'
 
 
 class Docs extends Command {
     constructor(client) {
-        super(client, {
-            name: "docs",
-            aliases: ['dc'],
-            description: 'pesquisa na documentação atual pt-br da godot',
-            usage: "g!docs <argumento>",
-            requireArgs: true,
-            defaultMessage: "Documentação atual da godot engine:\n\nhttps://docs.godotengine.org/pt_BR/stable/index.html"
-        })
+        super(client, new SlashCommandBuilder()
+            .setName("docs")
+            .setDescription('pesquisa na documentação atual pt-br da godot')
+            .addStringOption(option => option.setName('pesquisa').setDescription('pesquise algo mais específico'))
+        )
     }
-
-    async run(message, args) {
-        const search = args.join("+")
+    async run(interaction, client) {
+        const search = interaction.options.getString('pesquisa')
+        if (!search) {
+            interaction.reply("esta é a documentação oficial da godot \n \nhttps://docs.godotengine.org/pt_BR/stable/index.html")
+            return
+        }
+        
         const url = "https://docs.godotengine.org/_/api/v2/search/?"
         const query = `q=${search}&project=godot-pt-br&version=stable&language=pt_BR`
 
@@ -54,7 +56,7 @@ class Docs extends Command {
             .setFields(fields)
             .setFooter(`version: ${data.version} \n\Coletado direto da doc: https://docs.godotengine.org/`)
 
-        message.channel.send({ embeds: [embedMsg] })
+        interaction.reply({ embeds: [embedMsg] })
     }
 }
 export default Docs
