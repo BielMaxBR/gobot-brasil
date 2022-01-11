@@ -1,6 +1,6 @@
 import Command from '../../classes/Command.js';
 import { MessageEmbed } from 'discord.js'
-
+import { SlashCommandBuilder } from '@discordjs/builders'
 const steamTags = [
     'Adventure',
     'Casual',
@@ -210,16 +210,12 @@ const genreTags = [
 
 class GameIdeaGenerator extends Command {
     constructor(client) {
-        super(client, {
-            name: "gameideagenerator",
-            aliases: ['gag', "ideia"],
-            description: "retorna uma ideia aleatória de game utilizando as tags da steam",
-            usage: "g!ideia",
-            requireArgs: false
-        })
+        super(client, new SlashCommandBuilder()
+            .setName('geradordeideias')
+            .setDescription("retorna uma ideia aleatória de game utilizando as tags da steam")
+        )
     }
-
-    async run(message, args) {
+    async run(interaction, client) {
         var genre1 = getRandomInt(0, genreTags.length - 1)
         var genre2 = getRandomInt(0, genreTags.length - 1)
         var tag = getRandomInt(0, steamTags.length - 1)
@@ -236,7 +232,7 @@ class GameIdeaGenerator extends Command {
             .setColor("#2596be")
             .setDescription(`**${genreTags[genre1]}**\n**${genreTags[genre2]}**\n**${steamTags[tag]}**`)
 
-        message.channel.send({ embeds: [embed] })
+        interaction.reply({ embeds: [embed] })
     }
 }
 

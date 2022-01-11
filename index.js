@@ -1,5 +1,6 @@
 import Client from "./classes/Client.js"
 import dotenv from 'dotenv'
+import reloadCommands from './util/reloadCommands.js'
 dotenv.config()
 
 import { dirname } from "dirname-filename-esm"
@@ -11,10 +12,14 @@ const client = new Client({
 
 client.login(process.env.TOKEN)
 
-client.loadCommands('Commands', __dirname)
-client.loadEvents('Events', __dirname)
+const loadedCommands = client.loadCommands('Commands', __dirname)
+const loadedEvents = client.loadEvents('Events', __dirname)
 
-client.on('ready', _ => {
-    console.log("bot iniciado")
-    client.user.setActivity(`meu prefixo é ${process.env.PREFIX}` , { type: "WATCHING" })
+Promise.all([loadedCommands, loadedEvents]).then(_ => {
+    reloadCommands(client)
+    
+    client.on('ready', _ => {
+        console.log("bot iniciado")
+        client.user.setActivity(`comandos no /` , { type: "STREAMING" })
+    })
 })
