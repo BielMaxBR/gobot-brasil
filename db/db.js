@@ -1,50 +1,16 @@
 import { createClient } from 'redis';
 import dotenv from "dotenv"
+import Constants from '../util/Constants';
 dotenv.config()
 
 const redisClient = createClient({
-    port: process.env.REDIS_PORT,
-    host: process.env.REDIS_HOST,
-    password: process.env.REDIS_PASSWORD,
+    url: process.env.REDIS_HOST
 });
 
-const simpleRedis = {}
 redisClient.on('ready', () => {
     console.log('redis conectado')
-    // client.del("Sessions")
+    redisClient.hDel(Constants.MESSAGES)
 })
 
-simpleRedis.get = (dataName, key) => {
-    return new Promise((resolve) => {
-        redisClient.hget(dataName, key, (err, data) => {
-            if (err) {
-                resolve(undefined)
-                return
-            }
-            resolve(data)
-        })
-    })
-}
-simpleRedis.set = (dataName, key, newData) => {
-    return new Promise((resolve) => {
-        redisClient.hset(dataName, key, newData, (err, data) => {
-            if (err) {
-                resolve(undefined)
-                return
-            }
-            resolve(data)
-        })
-    })
-}
-simpleRedis.del = (dataName, key) => {
-    return new Promise((resolve) => {
-        redisClient.hdel(dataName, key, (err, reply) => {
-            if (err) {
-                resolve(undefined)
-                return
-            }
-            resolve(reply)
-        })
-    })
-}
-export {simpleRedis as default, redisClient}
+redisClient.connect()
+export default redisClient
