@@ -31,6 +31,6 @@
     "redis": "^4.0.3"
   },
   "nodemonConfig": {
-    "delay": 5000
+    "delay": 2000
   }
 }
