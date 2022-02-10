@@ -1,6 +1,6 @@
 import { createClient } from 'redis';
 import dotenv from "dotenv"
-import Constants from '../util/Constants';
+import Constants from '../util/Constants.js'
 dotenv.config()
 
 const redisClient = createClient({
