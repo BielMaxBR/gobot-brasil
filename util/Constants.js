@@ -1,4 +1,4 @@
 const Constants = {}
-    .MESSAGES = "messages"
+    .MESSAGES = "messages:jsondata"
 
 export default Constants
