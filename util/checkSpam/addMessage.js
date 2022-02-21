@@ -13,5 +13,5 @@ export default async function addMessage(message) {
    const data = { id: message.id, timestamp: message.createdTimestamp }
    redis.json.arrAppend(Constants.MESSAGES, `.${message.content}.messages`, data)
 
-   return redis.json.get(Constants.MESSAGES, `.${message.content}.messages`)
+   return (await redis.json.get(Constants.MESSAGES))[message.content].messages
 }
