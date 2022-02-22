@@ -10,7 +10,8 @@ class Message {
     }
 
     async run(message) {
-        const isSpam = await checkMessage(message, this.client)
+        if (message.author.bot) return
+        const isSpam = await checkMessage(message)
     }
 }
 
