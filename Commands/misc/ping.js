@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import Command from '../../classes/Command.js';
+import { SlashCommandBuilder } from '@discordjs/builders'
+import Command from '../../classes/Command.js'
 
 class Ping extends Command {
     constructor(client) {
@@ -11,7 +11,7 @@ class Ping extends Command {
     async run(interaction, client) {
         const bot_message = await interaction.reply({ content: 'Ping?', fetchReply: true })
             
-        interaction.editReply(`Pong! A Latência é ${bot_message.createdTimestamp - interaction.createdTimestamp}ms.`);
+        interaction.editReply(`Pong! A Latência é ${bot_message.createdTimestamp - interaction.createdTimestamp}ms.`)
     }
 }
 

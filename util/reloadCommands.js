@@ -4,15 +4,15 @@ import { REST } from "@discordjs/rest"
 import { config } from "dotenv"
 config()
 
-const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
+const rest = new REST({ version: '9' }).setToken(process.env.TOKEN)
 
 export default async client => {
-    console.log('enviando comandos pro discord...');
+    console.log('enviando comandos pro discord...')
     let commands = []
     client.commands.forEach((value) => {
         commands.push(value.builder.toJSON())
         console.log('carregando comando:', value.builder.name)
-    });
+    })
 
     try {
         await rest.put(
@@ -20,7 +20,7 @@ export default async client => {
             { body: commands },
         )
     
-        console.log('comandos enviados pro discord com sucesso');
+        console.log('comandos enviados pro discord com sucesso')
     } catch(err) {
         console.log(err)
     }

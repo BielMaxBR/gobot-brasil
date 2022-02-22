@@ -1,11 +1,11 @@
-import { createClient } from 'redis';
+import { createClient } from 'redis'
 import dotenv from "dotenv"
 import Constants from '../util/Constants.js'
 dotenv.config()
 
 const redisClient = createClient({
     url: process.env.REDIS_HOST
-});
+})
 
 redisClient.on('ready', async () => {
     console.log('redis conectado')

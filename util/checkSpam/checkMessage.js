@@ -1,14 +1,11 @@
 import addMessage from "./addMessage.js"
-import cleanMessageList from "./cleanMessageList.js"
 
 
-export default async function checkMessage({content, id, createdTimestamp}) {
-   const array = await addMessage(content, id, createdTimestamp)
-   if (!array) return
-   console.log("contagem: ", array.length)
-   if (array.length >= 3) {
-      // sistema pra apagar e mutar dps
-      console.log('spam encontrado')
-      await cleanMessageList(content)
-   }
+export default async function checkMessage({ content, id, createdTimestamp }, guildId, channelId) {
+	const array = await addMessage(content, id, guildId, channelId, createdTimestamp)
+	if (!array) return false
+	console.log("contagem: ", array.length)
+	if (array.length >= 3) {
+		return array
+	}
 }

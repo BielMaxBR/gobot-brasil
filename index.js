@@ -23,3 +23,5 @@ Promise.all([loadedCommands, loadedEvents]).then(_ => {
         client.user.setActivity(`comandos no /` , { type: "STREAMING" })
     })
 })
+
+export default client
