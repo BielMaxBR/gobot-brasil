@@ -24,7 +24,7 @@
     "@node-redis/json": "^1.0.2",
     "dirname-filename-esm": "^1.1.1",
     "discord-api-types": "^0.26.1",
-    "discord.js": "^13.1.0",
+    "discord.js": "^13.6.0",
     "dotenv": "^10.0.0",
     "node": "16.6.1",
     "node-fetch": "^3.2.0",
