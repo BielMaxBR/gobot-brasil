@@ -3,10 +3,12 @@ import Constants from "../Constants.js"
 
 export default async function deleteSpam({ content, member }, array, guild) {
     console.log('spam encontrado')
-    try { 
-        member.timeout(1000 * 60 * 60 * 24, `suspeita de spam`)
-        member.send("você foi mutado na Godot Brasil por suspeita de spam. \n\ncaso tenha sido um engano, contate a administração")
-    } catch (err) { console.log(err) }
+    member.timeout(1000 * 60 * 60 * 24, Constants.TIMEOUT_TEXT)
+        .then(_ => {
+            member.send(Constants.TIMEOUT_WARNING)
+        })
+        .catch(console.error)
+
 
     for (const data of array) {
 
