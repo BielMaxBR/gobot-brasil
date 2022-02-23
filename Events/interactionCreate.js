@@ -4,7 +4,7 @@ export default class InteractionCreate {
     }
     
     async run(interaction) {
-        if (!interaction.isCommand()) return;
+        if (!interaction.isCommand()) return
 
         try {
             const name = interaction.commandName

@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import Command from '../../classes/Command.js';
+import { SlashCommandBuilder } from '@discordjs/builders'
+import Command from '../../classes/Command.js'
 
 class FirstSteps extends Command {
     constructor(client) {

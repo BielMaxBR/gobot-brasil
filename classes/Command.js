@@ -1,6 +1,6 @@
 class Command {
     constructor(client, builder) {
-        this.client = client;
+        this.client = client
 
         this.help = {
             name: builder.name || 'null',

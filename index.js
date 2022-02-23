@@ -1,3 +1,14 @@
+String.prototype.hashCode = function () {
+    var hash = 0, i, chr;
+    if (this.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+        chr = this.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+};
+
 import Client from "./classes/Client.js"
 import dotenv from 'dotenv'
 import reloadCommands from './util/reloadCommands.js'
@@ -17,9 +28,11 @@ const loadedEvents = client.loadEvents('Events', __dirname)
 
 Promise.all([loadedCommands, loadedEvents]).then(_ => {
     reloadCommands(client)
-    
+
     client.on('ready', _ => {
         console.log("bot iniciado")
-        client.user.setActivity(`comandos no /` , { type: "STREAMING" })
+        client.user.setActivity(`comandos no /`, { type: "STREAMING" })
     })
 })
+
+export default client
