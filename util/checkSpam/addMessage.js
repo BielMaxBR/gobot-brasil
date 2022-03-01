@@ -23,5 +23,5 @@ export default async function addMessage(content, id, guildId, channelId, create
 
 	const returnArray = (await redis.json.get(Constants.MESSAGES))[content.hashCode()].messages
 
-	return returnArray ? returnArray : [data]
+	return returnArray
 }
