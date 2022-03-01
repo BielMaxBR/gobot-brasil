@@ -9,9 +9,10 @@ const redisClient = createClient({
 
 redisClient.on('ready', async () => {
     console.log('redis conectado')
-    if (process.env.TEST === true) {
-        console.log('\x1b[33m%s\x1b[0m', "***MODO TESTE***", await redisClient.json.set(Constants.MESSAGES, "$", {}))
+    if (process.env.TEST == true) {
+        console.log('\x1b[33m%s\x1b[0m', "***MODO TESTE***")
     }
+    await redisClient.json.set(Constants.MESSAGES, "$", {})
 })
 
 redisClient.connect()

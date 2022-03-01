@@ -13,7 +13,7 @@ class Message {
         if (message.author.bot) return
         if (message.content == "vasco") message.reply("RECEBA")
         const isSpam = await checkMessage(message, message.guild.id, message.channel.id)
-        if (isSpam) deleteSpam(message, isSpam, message.guild)
+        if (isSpam) deleteSpam(message, message.guild)
     }
 }
 
