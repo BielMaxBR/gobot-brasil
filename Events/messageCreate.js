@@ -11,7 +11,7 @@ class Message {
 
     async run(message) {
         if (message.author.bot) return
-        if (message.content == "vasco") message.reply("RECEBA")
+        if (message.content == "vasco") message.reply("DEVOLVA")
         const isSpam = await checkMessage(message, message.guild.id, message.channel.id)
         if (isSpam) deleteSpam(message, message.guild)
     }
