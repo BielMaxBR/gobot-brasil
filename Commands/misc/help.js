@@ -1,5 +1,5 @@
 import Command from '../../classes/Command.js'
-import { SelectMenuBuilder, EmbedBuilder, ActionRowBuilder } from 'discord.js'
+import { SelectMenuBuilder, SelectMenuOptionBuilder, EmbedBuilder, ActionRowBuilder } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 
 class Help extends Command {
@@ -19,11 +19,11 @@ class Help extends Command {
 
             for (const command of commands) {
                 if (commands.indexOf(command) >= 10) break
-                const field = {}
-
-                field.name = command.help.name
-                field.description = command.help.description
-                field.value = command.help.name
+                const field = new SelectMenuOptionBuilder()
+                    .setLabel(command.help.name)
+                    .setDescription(command.help.description)
+                    .setValue(command.help.name)
+                   
                 fields.push(field)
             }
 
