@@ -1,13 +1,13 @@
 import Command from '../../classes/Command.js'
 import { MessageEmbed } from 'discord.js'
-import { SlashCommandBuilder } from '@discordjs/builders'
+import { SlashCommandBuilder, ActionRowBuilder, SelectMenuBuilder } from '@discordjs/builders'
 
 class Help extends Command {
     constructor(client) {
         super(client, new SlashCommandBuilder()
-        .setName("help")
-        .setDescription("mostra como funcionam os comandos")
-        .addStringOption(option => option.setName('comando').setDescription("fale um comando específico"))
+            .setName("help")
+            .setDescription("mostra como funcionam os comandos")
+            .addStringOption(option => option.setName('comando').setDescription("fale um comando específico"))
         )
     }
     run(interaction, client) {
@@ -22,17 +22,24 @@ class Help extends Command {
                 const field = {}
 
                 field.name = command.help.name
-                field.value = command.help.description
+                field.description = command.help.description
+                field.value = command.help.name
                 fields.push(field)
             }
 
             const embedMsg = new MessageEmbed()
                 .setTitle("Comandos")
                 .setColor("#2596be")
-                .addFields(fields)
 
+            const row = new ActionRowBuilder()
+                .addComponents(
+                    new SelectMenuBuilder()
+                    .setCustomId('select')
+                    .setPlaceholder('Nothing selected')
+                    .addOptions(fields),
+                );
 
-            interaction.reply({ embeds: [embedMsg] })
+            interaction.reply({ embeds: [embedMsg], addComponents: [row] })
             return
         }
         const command = client.getCommand(searchParam)
