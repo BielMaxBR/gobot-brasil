@@ -1,7 +1,6 @@
-import { Interaction, MessageEmbed } from 'discord.js'
+import { Interaction, MessageEmbed, SlashCommandBuilder } from 'discord.js'
 import Command from '../../classes/Command.js'
 import fetch from 'node-fetch'
-import { SlashCommandBuilder } from '@discordjs/builders'
 
 
 class Docs extends Command {

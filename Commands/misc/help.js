@@ -1,5 +1,5 @@
 import Command from '../../classes/Command.js'
-import { MessageSelectMenu, MessageEmbed, MessageActionRow } from 'discord.js'
+import { SelectMenuBuilder, MessageEmbed, ActionRowBuilder } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 
 class Help extends Command {
@@ -31,9 +31,9 @@ class Help extends Command {
                 .setTitle("Comandos")
                 .setColor("#2596be")
 
-            const row = new MessageActionRow()
+            const row = new ActionRowBuilder()
                 .addComponents(
-                    new MessageSelectMenu()
+                    new SelectMenuBuilder()
                     .setCustomId('select')
                     .setPlaceholder('Nothing selected')
                     .addOptions(fields),

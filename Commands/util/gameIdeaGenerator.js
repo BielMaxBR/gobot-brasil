@@ -1,6 +1,6 @@
 import Command from '../../classes/Command.js'
-import { MessageEmbed } from 'discord.js'
-import { SlashCommandBuilder } from '@discordjs/builders'
+import { MessageEmbed, SlashCommandBuilder } from 'discord.js'
+
 const steamTags = [
     'Adventure',
     'Casual',

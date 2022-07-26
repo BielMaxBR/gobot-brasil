@@ -1,10 +1,12 @@
+import { InteractionType } from "discord.js"
+
 export default class InteractionCreate {
     constructor(client) {
         this.client = client
     }
     
     async run(interaction) {
-        if (!interaction.isCommand()) return
+        if (interaction.type !== InteractionType.ApplicationCommand) return
 
         try {
             const name = interaction.commandName
