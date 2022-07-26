@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/BielMaxBR/gobot-brasil#readme",
   "dependencies": {
-    "@discordjs/rest": "^0.2.0-canary.0",
+    "@discordjs/rest": "^1.0.0",
     "@node-redis/json": "^1.0.2",
     "dirname-filename-esm": "^1.1.1",
     "discord-api-types": "^0.26.1",
