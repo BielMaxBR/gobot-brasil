@@ -1,4 +1,4 @@
-import { Interaction, MessageEmbed, SlashCommandBuilder } from 'discord.js'
+import { Interaction, EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import Command from '../../classes/Command.js'
 import fetch from 'node-fetch'
 
@@ -49,7 +49,7 @@ class Docs extends Command {
                 fields.push(field)
             }
 
-            const embedMsg = new MessageEmbed()
+            const embedMsg = new EmbedBuilder()
                 .setTitle(data.title)
                 .setColor("#2596be")
                 .setThumbnail("https://docs.godotengine.org/en/stable/_static/docs_logo.png")

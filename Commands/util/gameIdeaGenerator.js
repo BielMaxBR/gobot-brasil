@@ -1,5 +1,5 @@
 import Command from '../../classes/Command.js'
-import { MessageEmbed, SlashCommandBuilder } from 'discord.js'
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 
 const steamTags = [
     'Adventure',
@@ -227,7 +227,7 @@ class GameIdeaGenerator extends Command {
             tag = getRandomInt(0, steamTags.length - 1)
         }
 
-        var embed = new MessageEmbed()
+        var embed = new EmbedBuilder()
             .setTitle("O estilo do jogo é:")
             .setColor("#2596be")
             .setDescription(`**${genreTags[genre1]}**\n**${genreTags[genre2]}**\n**${steamTags[tag]}**`)

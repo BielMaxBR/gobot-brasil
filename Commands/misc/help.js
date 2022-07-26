@@ -1,5 +1,5 @@
 import Command from '../../classes/Command.js'
-import { SelectMenuBuilder, MessageEmbed, ActionRowBuilder } from 'discord.js'
+import { SelectMenuBuilder, EmbedBuilder, ActionRowBuilder } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 
 class Help extends Command {
@@ -27,7 +27,7 @@ class Help extends Command {
                 fields.push(field)
             }
 
-            const embedMsg = new MessageEmbed()
+            const embedMsg = new EmbedBuilder()
                 .setTitle("Comandos")
                 .setColor("#2596be")
 
@@ -49,7 +49,7 @@ class Help extends Command {
             return
         }
 
-        const embedMsg = new MessageEmbed()
+        const embedMsg = new EmbedBuilder()
             .setTitle(command.help.name)
             .setColor("#2596be")
             .setDescription(command.help.description)
