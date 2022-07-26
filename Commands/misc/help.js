@@ -49,10 +49,10 @@ class Help extends Command {
                     .setColor("#2596be")
                     .setDescription(command.help.description)
                 
-                _interaction.reply({ embeds: [embedMsg] })
+                _interaction.followUp({ embeds: [embedMsg] })
             })
             
-            interaction.reply({ embeds: [embedMsg], components: [row] })
+            interaction.reply({ embeds: [embedMsg], components: [row], ephemeral: true})
             return
         }
         const command = client.getCommand(searchParam)
