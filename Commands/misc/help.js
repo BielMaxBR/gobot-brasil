@@ -1,6 +1,6 @@
 import Command from '../../classes/Command.js'
-import { MessageEmbed, ActionRowBuilder } from 'discord.js'
-import { SlashCommandBuilder, SelectMenuBuilder } from '@discordjs/builders'
+import { SelectMenuBuilder, MessageEmbed, ActionRowBuilder } from 'discord.js'
+import { SlashCommandBuilder } from '@discordjs/builders'
 
 class Help extends Command {
     constructor(client) {
