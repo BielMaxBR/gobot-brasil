@@ -39,7 +39,7 @@ class Help extends Command {
                     .addOptions(fields),
                 );
 
-            interaction.reply({ embeds: [embedMsg], addComponents: [row] })
+            interaction.reply({ embeds: [embedMsg], components: [row] })
             return
         }
         const command = client.getCommand(searchParam)
