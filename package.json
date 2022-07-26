@@ -22,13 +22,13 @@
     "@discordjs/rest": "^1.0.0",
     "@node-redis/json": "^1.0.2",
     "dirname-filename-esm": "^1.1.1",
-    "discord-api-types": "^0.26.1",
+    "discord-api-types": "^0.36.3",
     "discord.js": "^14.0.3",
     "dotenv": "^10.0.0",
-    "node": "^16.9.0",
-    "node-fetch": "^3.2.0",
+    "node": "^16.16.0",
+    "node-fetch": "^3.2.9",
     "nodemon": "^2.0.19",
-    "redis": "^4.0.3",
+    "redis": "^4.2.0",
     "redis-parser": "^3.0.0"
   },
   "nodemonConfig": {
