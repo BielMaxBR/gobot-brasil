@@ -1,4 +1,4 @@
-import { CommandInteraction, SelectMenuInteraction } from "discord.js"
+import { ChatInputCommandInteraction, SelectMenuInteraction } from "discord.js"
 
 export default class InteractionCreate {
     constructor(client) {
@@ -6,9 +6,9 @@ export default class InteractionCreate {
     }
 
     async run(interaction) {
-        console.log(interaction.constructor, CommandInteraction, interaction.constructor == CommandInteraction)
+        console.log(interaction.constructor, ChatInputCommandInteraction, interaction.constructor == CommandInteraction)
         switch (interaction.constructor) {
-            case CommandInteraction:
+            case ChatInputCommandInteraction:
                 try {
                     const name = interaction.commandName
                     const client = interaction.client
