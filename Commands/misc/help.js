@@ -31,14 +31,27 @@ class Help extends Command {
                 .setTitle("Comandos")
                 .setColor("#2596be")
 
+            const time = new Date().getTime()
+
             const row = new ActionRowBuilder()
                 .addComponents(
                     new SelectMenuBuilder()
-                    .setCustomId('select')
-                    .setPlaceholder('Nothing selected')
+                    .setCustomId(time)
+                    .setPlaceholder('Escolha um comando')
                     .addOptions(fields),
                 );
-
+            
+            client.selectMenus.set(time, (_interaction) => {
+                const command = client.getCommand(_interaction.values[0])
+                
+                const embedMsg = new EmbedBuilder()
+                    .setTitle(command.help.name)
+                    .setColor("#2596be")
+                    .setDescription(command.help.description)
+                
+                _interaction.reply({ embeds: [embedMsg] })
+            })
+            
             interaction.reply({ embeds: [embedMsg], components: [row] })
             return
         }

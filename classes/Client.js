@@ -6,7 +6,7 @@ class GoClient extends Client {
         super(options || {})
 
         this.commands = new Collection()
-        this.aliases = new Collection()
+        this.selectMenus = new Collection()
         this.events = new Collection()
     }
 
