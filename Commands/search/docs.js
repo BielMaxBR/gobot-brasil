@@ -1,4 +1,4 @@
-import { Interaction, EmbedBuilder, SlashCommandBuilder } from 'discord.js'
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import Command from '../../classes/Command.js'
 import fetch from 'node-fetch'
 
