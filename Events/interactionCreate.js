@@ -6,7 +6,7 @@ export default class InteractionCreate {
     }
 
     async run(interaction) {
-        console.log(interaction instanceof CommandInteraction)
+        console.log(interaction.constructor, CommandInteraction.constructor)
         switch (interaction.constructor) {
             case CommandInteraction:
                 try {
