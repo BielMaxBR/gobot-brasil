@@ -9,6 +9,7 @@ String.prototype.hashCode = function () {
     return hash;
 };
 
+import { GatewayIntentBits } from "discord.js"
 import Client from "./classes/Client.js"
 import dotenv from 'dotenv'
 import reloadCommands from './util/reloadCommands.js'
@@ -18,7 +19,7 @@ import { dirname } from "dirname-filename-esm"
 const __dirname = dirname(import.meta)
 
 const client = new Client({
-    intents: ['GUILDS', 'GUILD_MESSAGES']
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
 })
 
 client.login(process.env.TOKEN)

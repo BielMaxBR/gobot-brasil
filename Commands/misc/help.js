@@ -1,13 +1,13 @@
 import Command from '../../classes/Command.js'
-import { MessageEmbed } from 'discord.js'
+import { SelectMenuBuilder, SelectMenuOptionBuilder, EmbedBuilder, ActionRowBuilder } from 'discord.js'
 import { SlashCommandBuilder } from '@discordjs/builders'
 
 class Help extends Command {
     constructor(client) {
         super(client, new SlashCommandBuilder()
-        .setName("help")
-        .setDescription("mostra como funcionam os comandos")
-        .addStringOption(option => option.setName('comando').setDescription("fale um comando específico"))
+            .setName("help")
+            .setDescription("mostra como funcionam os comandos")
+            .addStringOption(option => option.setName('comando').setDescription("fale um comando específico"))
         )
     }
     run(interaction, client) {
@@ -19,20 +19,40 @@ class Help extends Command {
 
             for (const command of commands) {
                 if (commands.indexOf(command) >= 10) break
-                const field = {}
-
-                field.name = command.help.name
-                field.value = command.help.description
+                const field = new SelectMenuOptionBuilder()
+                    .setLabel(command.help.name)
+                    .setDescription(command.help.description)
+                    .setValue(command.help.name)
+                   
                 fields.push(field)
             }
 
-            const embedMsg = new MessageEmbed()
+            const embedMsg = new EmbedBuilder()
                 .setTitle("Comandos")
                 .setColor("#2596be")
-                .addFields(fields)
 
+            const time = new Date().getTime()
 
-            interaction.reply({ embeds: [embedMsg] })
+            const row = new ActionRowBuilder()
+                .addComponents(
+                    new SelectMenuBuilder()
+                    .setCustomId(time.toString())
+                    .setPlaceholder('Escolha um comando')
+                    .addOptions(fields),
+                );
+            
+            client.selectMenus.set(time.toString(), (_interaction) => {
+                const command = client.getCommand(_interaction.values[0])
+                
+                const embedMsg = new EmbedBuilder()
+                    .setTitle(command.help.name)
+                    .setColor("#2596be")
+                    .setDescription(command.help.description)
+                
+                _interaction.followUp({ embeds: [embedMsg] })
+            })
+            
+            interaction.reply({ embeds: [embedMsg], components: [row], ephemeral: true})
             return
         }
         const command = client.getCommand(searchParam)
@@ -42,7 +62,7 @@ class Help extends Command {
             return
         }
 
-        const embedMsg = new MessageEmbed()
+        const embedMsg = new EmbedBuilder()
             .setTitle(command.help.name)
             .setColor("#2596be")
             .setDescription(command.help.description)

@@ -1,10 +1,10 @@
-import { Routes } from "discord-api-types/v9"
+import { Routes } from "discord-api-types/v10"
 import { REST } from "@discordjs/rest"
 
 import { config } from "dotenv"
 config()
 
-const rest = new REST({ version: '9' }).setToken(process.env.TOKEN)
+const rest = new REST({ version: '10' }).setToken(process.env.TOKEN)
 
 export default async client => {
     console.log('enviando comandos pro discord...')

@@ -12,7 +12,7 @@ export default async function addMessage(content, id, guildId, channelId, create
 		const timer = setTimeout(async () => {
 			const postCheck = (await redis.json.get(Constants.MESSAGES))[content.hashCode()]
 			if (postCheck) {
-				console.log('sem spam nessa mensagem', content)
+				console.log('sem spam nessa mensagem: ', content)
 				redis.json.del(Constants.MESSAGES, `.${content.hashCode()}`)
 			}
 		}, 5000)
