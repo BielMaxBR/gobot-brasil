@@ -14,7 +14,7 @@ class Message {
         if (message.content == "vasco") message.reply("DEVOLVA")
         if (message.content == "diz pra ele bot") message.reply("PELO AMOR DE DEUS, LEIA A DOCUMENTAÇÃO!!!")
         const isSpam = await checkMessage(message, message.guild.id, message.channel.id)
-        if (isSpam) deleteSpam(message, message.guild)
+        //if (isSpam) deleteSpam(message, message.guild)
     }
 }
 
