@@ -19,7 +19,11 @@ import { dirname } from "dirname-filename-esm"
 const __dirname = dirname(import.meta)
 
 const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent
+    ]
 })
 
 client.login(process.env.TOKEN)
