@@ -48,14 +48,14 @@ class Docs extends Command {
 
                 fields.push(field)
             }
-
+            
             const embedMsg = new EmbedBuilder()
                 .setTitle(data.title)
                 .setColor("#2596be")
                 .setThumbnail("https://docs.godotengine.org/en/stable/_static/docs_logo.png")
                 .setURL(data.domain + data.path)
                 .setFields(fields)
-                .setFooter(`version: ${data.version} \n\Coletado direto da doc: https://docs.godotengine.org/`)
+                .setFooter({ text: `version: ${data.version} \n\Coletado direto da doc: https://docs.godotengine.org/`})
 
             interaction.reply({ embeds: [embedMsg] })
         } catch (err) {
