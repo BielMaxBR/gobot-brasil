@@ -28,7 +28,7 @@ class Docs extends Command {
             const data = json.results[0]
 
             if (data === undefined) {
-                message.channel.send("nada encontrado. veja se a sua ortografia está correta")
+                interaction.reply("nada encontrado. veja se a sua ortografia está correta", {ephemeral: true})
                 return
             }
 
