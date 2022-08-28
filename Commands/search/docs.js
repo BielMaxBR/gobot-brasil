@@ -11,6 +11,7 @@ class Docs extends Command {
             .addStringOption(option => option.setName('pesquisa').setDescription('pesquise algo mais específico'))
         )
     }
+    
     async run(interaction, client) {
         try {
             const search = interaction.options.getString('pesquisa')
