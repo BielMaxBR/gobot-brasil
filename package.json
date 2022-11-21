@@ -27,7 +27,7 @@
     "discord.js": "^14.0.3",
     "dotenv": "^10.0.0",
     "node": "^16.16.0",
-    "node-fetch": "^3.2.9",
+    "node-fetch": "^3.2.10",
     "nodemon": "^2.0.19",
     "octokit": "^2.0.10",
     "redis": "^4.2.0",
