@@ -1,3 +1,4 @@
+import chalk from "chalk"
 import { Routes } from "discord-api-types/v10"
 import { REST } from "@discordjs/rest"
 
@@ -7,11 +8,11 @@ config()
 const rest = new REST({ version: '10' }).setToken(process.env.TOKEN)
 
 export default async client => {
-    console.log('enviando comandos pro discord...')
+    console.log(chalk.yellowBright('enviando comandos pro discord...'))
     let commands = []
     client.commands.forEach((value) => {
         commands.push(value.builder.toJSON())
-        console.log('carregando comando:', value.builder.name)
+        console.log(chalk.yellowBright('carregando comando:', value.builder.name))
     })
 
     try {
@@ -20,8 +21,8 @@ export default async client => {
             { body: commands },
         )
     
-        console.log('comandos enviados pro discord com sucesso')
+        console.log(chalk.greenBright('comandos enviados pro discord com sucesso'))
     } catch(err) {
-        console.log(err)
+        console.log(chalk.redBright(err))
     }
 }

@@ -12,6 +12,7 @@ String.prototype.hashCode = function () {
 import { GatewayIntentBits } from "discord.js"
 import Client from "./classes/Client.js"
 import dotenv from 'dotenv'
+import chalk from "chalk";
 import reloadCommands from './util/reloadCommands.js'
 dotenv.config()
 
@@ -35,7 +36,7 @@ Promise.all([loadedCommands, loadedEvents]).then(_ => {
     reloadCommands(client)
 
     client.on('ready', _ => {
-        console.log("bot iniciado")
+        console.log(chalk.greenBright("bot iniciado"))
         client.user.setActivity(`comandos no /`, { type: "STREAMING" })
     })
 })

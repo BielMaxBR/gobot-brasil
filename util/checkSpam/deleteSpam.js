@@ -1,8 +1,9 @@
+import chalk from "chalk"
 import redis from "../../db/db.js"
 import Constants from "../Constants.js"
 
 export default async function deleteSpam({ content, member }, guild) {
-    console.log('spam encontrado')
+    console.log(chalk.red('spam encontrado'))
     member.timeout(1000 * 60 * 60 * 24, Constants.TIMEOUT_TEXT)
         .then(async _ => {
             member.send(Constants.TIMEOUT_WARNING)
@@ -25,5 +26,5 @@ async function deleteMessages(content, guild) {
             .catch(console.error);
     }
     redis.json.del(Constants.MESSAGES, `.${content.hashCode()}`)
-    console.log("spam deletado")
+    console.log(chalk.green("spam deletado"))
 }

@@ -40,6 +40,10 @@ class Compile extends Command {
         }
     }
 
+    runForMessage(message, client, args) {
+        console.log(args)
+    }
+
     help(interaction) {
         const scriptExample = "```swift\nextends SceneTree\n\nfunc _init():\n    print(\"godot é brabo\")\n    quit()```"
         const useExample = "\\```swift\nprint(algo)\n\\```\n"

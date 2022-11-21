@@ -1,3 +1,4 @@
+import chalk from "chalk"
 import { ChatInputCommandInteraction, ModalSubmitInteraction, SelectMenuInteraction } from "discord.js"
 
 export default class InteractionCreate {
@@ -15,7 +16,7 @@ export default class InteractionCreate {
                     const command = client.commands.get(name)
                     command.run(interaction, client)
                 } catch (err) {
-                    console.log(err)
+                    console.log(chalk.red(err))
                 }
 
                 break
@@ -29,7 +30,7 @@ export default class InteractionCreate {
                     
                     client.selectMenus.delete(id)
                 } catch (err) {
-                    console.log(err)
+                    console.log(chalk.red(err))
                 }
                 break
             case ModalSubmitInteraction:
@@ -41,7 +42,7 @@ export default class InteractionCreate {
                     
                     client.modals.delete(id)
                 } catch (err) {
-                    console.log(err)
+                    console.log(chalk.red(err))
                 }
                 break
 
