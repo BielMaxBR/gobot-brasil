@@ -2,6 +2,8 @@
 *.replit
 *.nix
 
+test/
+
 # Logs
 logs
 *.log
