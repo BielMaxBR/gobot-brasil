@@ -29,6 +29,7 @@
     "node": "^16.16.0",
     "node-fetch": "^3.2.9",
     "nodemon": "^2.0.19",
+    "octokit": "^2.0.10",
     "redis": "^4.2.0",
     "redis-parser": "^3.0.0"
   },
