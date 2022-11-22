@@ -4,7 +4,7 @@ import deleteSpam from '../util/checkSpam/deleteSpam.js'
 import Constants from "../util/Constants.js"
 dotenv.config()
 
-class Message {
+class MessageCreate {
     constructor(client) {
         this.client = client
     }
@@ -34,4 +34,4 @@ class Message {
     }
 }
 
-export default Message
+export default MessageCreate

@@ -39,7 +39,7 @@ class Help extends Command {
                     .setCustomId(time.toString())
                     .setPlaceholder('Escolha um comando')
                     .addOptions(fields),
-                );
+                ) 
             
             client.selectMenus.set(time.toString(), (_interaction) => {
                 const command = client.getCommand(_interaction.values[0])

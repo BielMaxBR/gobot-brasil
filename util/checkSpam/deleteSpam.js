@@ -23,7 +23,7 @@ async function deleteMessages(content, guild) {
         const message = channel.messages.cache.get(data.id)
 
         message.delete()
-            .catch(console.error);
+            .catch(console.error) 
     }
     redis.json.del(Constants.MESSAGES, `.${content.hashCode()}`)
     console.log(chalk.green("spam deletado"))

@@ -1,5 +1,6 @@
+import chalk from 'chalk'
 import { exec } from 'child_process'
-import { EmbedBuilder, ModalBuilder, SlashCommandBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle } from 'discord.js'
+import { EmbedBuilder, ModalBuilder, SlashCommandBuilder, TextInputBuilder, ActionRowBuilder, TextInputStyle, CommandInteraction, GuildChannel } from 'discord.js'
 import { readFile, writeFile } from 'fs/promises'
 import Command from '../../classes/Command.js'
 
@@ -15,7 +16,7 @@ class Compile extends Command {
 
     run(interaction, client) {
         if (interaction.options.data.length == 0) {
-            help(interaction)
+            interaction.reply({ embeds: help() })
             return
         }
         let script = interaction.options.getString("script")
@@ -27,9 +28,9 @@ class Compile extends Command {
             const input = new TextInputBuilder()
                 .setCustomId("eita")
                 .setLabel("me digam")
-                .setStyle(TextInputStyle.Paragraph);
+                .setStyle(TextInputStyle.Paragraph) 
 
-            const row = new ActionRowBuilder().addComponents(input);
+            const row = new ActionRowBuilder().addComponents(input) 
             modal.setComponents(row)
             client.modals.set(modal.data.custom_id, _interaction => {
                 console.log(_interaction.fields.getTextInputValue("eita"))
@@ -41,10 +42,10 @@ class Compile extends Command {
         }
     }
 
-    async runForMessage(message, client, args) {
-        if (args[0].startsWith("script")) {
-            console.log(args)
+    async runForMessage(message, client, args=[]) {
+        if (args?.[0]?.startsWith("script")) {
             args[0] = args[0].replace("script", "")
+
             let script = args
                 .join(" ")
                 .replaceAll("```", "")
@@ -54,52 +55,70 @@ class Compile extends Command {
             let newFile = "segredo gigatônico"
             if (!(script.includes("extends") || script.includes("func _init():"))) {
                 let file = await readFile("default-script.gd", "utf8")
-                console.log(file)
+
                 file = file.replace(":INSERIR:", script)
-                console.log(file)
+
                 newFile = await writeFile('temp-script.gd', file)
+
             } else {
                 newFile = await writeFile('temp-script.gd', script)
+
             }
+
             if (newFile === "segredo gigatônico") return
 
             exec("chmod +x godot.64 && ./godot.64 -s temp-script.gd", (error, stdout, stderr) => {
                 if (error) {
-                    console.log(`error: ${error.message}`);
-                    return;
+                    console.log(chalk.cyan(`error: ${error.message}`))
+                    return 
                 }
-                if (stderr) {
-                    console.log(`stderr: ${stderr}`);
-                    return;
-                }
-                console.log(`stdout: ${stdout}`);
                 const embed = new EmbedBuilder()
-                    .setTitle("Saída do script")
-                    .setDescription("```\n" + stdout + "```")
-                message.channel.send({embeds:[embed]})
-            })
-        }
-    }
+                    .setColor("#2596be")
 
-    help(interaction) {
-        const scriptExample = "```swift\nextends SceneTree\n\nfunc _init():\n    print(\"godot é brabo\")\n    quit()```"
-        const useExample = "\\```swift\nprint(algo)\n\\```\n"
-        const embed = new EmbedBuilder()
-            .setTitle("forma correta de uso")
-            .setColor("#2596be")
-            .setFields([
-                {
-                    name: "Via texto",
-                    value: `escreva no campo assim:\n${useExample}`
-                },
-                {
-                    name: "Via arquivo",
-                    value: `Crie um script com a seguinte estrutura:\n${scriptExample}\nDepois, salve-o como .gd e envie pelo comando */compilar \`arquivo:\`*`
+                if (stderr) {
+                    console.log(chalk.cyan(`stderr: ${stderr}`))
+
+                    embed.setTitle("Erro no script")
+                        .setDescription("```\n" + stderr + "```")
+                        .setColor("#ff4444")
+
+                    message.channel.send({ embeds: [embed] })
+                    return 
                 }
-            ])
 
-        interaction.reply({ embeds: [embed] })
+                console.log(chalk.cyan(`stdout: ${stdout}`))
+
+                embed.setTitle("Saída do script")
+                    .setDescription("```\n" + stdout + "```")
+
+                message.channel.send({ embeds: [embed] })
+
+            })
+            return
+        }
+
+        message.channel.send({ embeds: [help()] })
     }
+
+}
+function help() {
+    const scriptExample = "```swift\nextends SceneTree\n\nfunc _init():\n    print(\"godot é brabo\")\n    quit()```"
+    const useExample = "\\```swift\nprint(algo)\n\\```\n"
+    const embed = new EmbedBuilder()
+        .setTitle("forma correta de uso")
+        .setColor("#2596be")
+        .setFields([
+            {
+                name: "Via texto",
+                value: `escreva no campo assim:\n${useExample}\n depois envie-o pelo comando **g:compilar script <texto>**`
+            },
+            {
+                name: "Via arquivo",
+                value: `Crie um script com a seguinte estrutura:\n${scriptExample}\nDepois, salve-o como .gd e envie pelo comando */compilar \`arquivo:\`*`
+            }
+        ])
+
+    return embed
 }
 
 

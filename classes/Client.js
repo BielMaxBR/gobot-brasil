@@ -1,5 +1,5 @@
-import { Client, Collection } from "discord.js";
-import { readdir, lstatSync } from "fs"; import { pathToFileURL } from 'url'
+import { Client, Collection } from "discord.js" 
+import { readdir, lstatSync } from "fs"
 
 class GoClient extends Client {
     constructor(options) {
@@ -16,7 +16,7 @@ class GoClient extends Client {
     }
 
     getCommand(value) {
-        return this.commands.get(value) || null;
+        return this.commands.get(value) || null 
     }
 
     async loadCommands(dir, root) {
@@ -72,7 +72,7 @@ class GoClient extends Client {
                         if (file.endsWith('.js')) {
                             const imported = await import('../' + filePath)
                             const event = new imported.default(this)
-                            super.on(file.split(".")[0], (...args) => event.run(...args));
+                            super.on(file.split(".")[0], (...args) => event.run(...args)) 
                         }
                     }
                     res()
