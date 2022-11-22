@@ -4,6 +4,10 @@
 
 test/
 
+# Godot coisas
+._sc_
+temp-script.gd
+
 # Logs
 logs
 *.log
