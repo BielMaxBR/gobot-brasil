@@ -1,4 +1,5 @@
-import { ChatInputCommandInteraction, SelectMenuInteraction } from "discord.js"
+import chalk from "chalk"
+import { ChatInputCommandInteraction, ModalSubmitInteraction, SelectMenuInteraction } from "discord.js"
 
 export default class InteractionCreate {
     constructor(client) {
@@ -6,7 +7,7 @@ export default class InteractionCreate {
     }
 
     async run(interaction) {
-        console.log(interaction.constructor, ChatInputCommandInteraction, interaction.constructor == ChatInputCommandInteraction)
+        // console.log(interaction.constructor, ChatInputCommandInteraction, interaction.constructor == ChatInputCommandInteraction)
         switch (interaction.constructor) {
             case ChatInputCommandInteraction:
                 try {
@@ -15,7 +16,7 @@ export default class InteractionCreate {
                     const command = client.commands.get(name)
                     command.run(interaction, client)
                 } catch (err) {
-                    console.log(err)
+                    console.log(chalk.red(err))
                 }
 
                 break
@@ -29,7 +30,19 @@ export default class InteractionCreate {
                     
                     client.selectMenus.delete(id)
                 } catch (err) {
-                    console.log(err)
+                    console.log(chalk.red(err))
+                }
+                break
+            case ModalSubmitInteraction:
+                try {
+                    const id = interaction.customId
+                    const client = interaction.client
+                    const func = client.modals.get(id)
+                    func(interaction)
+                    
+                    client.modals.delete(id)
+                } catch (err) {
+                    console.log(chalk.red(err))
                 }
                 break
 
