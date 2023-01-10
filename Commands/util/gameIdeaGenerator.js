@@ -181,32 +181,36 @@ const steamTags = [
     'Transhumanism',
     'Intentionally Awkward Control\'s',
     'Non Violent'
-]
+];
 const genreTags = [
-    "Rogue",
-    "RPG",
-    "Platform",
-    "Shooter",
-    "Fighting",
-    "Stealth",
-    "Survival",
-    "Text Adventure",
-    "Tactical",
-    "SandBox",
-    "Simulation",
-    "RTS",
-    "RTT",
-    "Tower Defense",
-    "Turn Based Strategy",
-    "Turn Based Tactical",
-    "Wargame",
-    "Sports",
-    "Competetive",
-    "Puzzle",
-    "Trivia",
-    "Card Game",
-    "Programming"
-]
+    'Rogue',
+    'RPG',
+    'Platform',
+    'Shooter',
+    'Fighting',
+    'Stealth',
+    'Survival',
+    'Text Adventure',
+    'Tactical',
+    'SandBox',
+    'Simulation',
+    'RTS',
+    'RTT',
+    'Tower Defense',
+    'Turn Based Strategy',
+    'Turn Based Tactical',
+    'Wargame',
+    'Sports',
+    'Competetive',
+    'Puzzle',
+    'Trivia',
+    'Card Game',
+    'Programming'
+];
+
+function getRandomArrayIndex(array) {
+    return Math.floor(Math.random() * array.length);
+};
 
 class GameIdeaGenerator extends Command {
     constructor(client) {
@@ -216,30 +220,24 @@ class GameIdeaGenerator extends Command {
         )
     }
     async run(interaction, client) {
-        var genre1 = getRandomInt(0, genreTags.length - 1)
-        var genre2 = getRandomInt(0, genreTags.length - 1)
-        var tag = getRandomInt(0, steamTags.length - 1)
+        let genreOne = getRandomArrayIndex(genreTags);
+        let genreTwo = getRandomArrayIndex(genreTags);
+        let tag = getRandomArrayIndex(steamTags);
 
-        while (genre1 == genre2) {
-            genre2 = getRandomInt(0, genreTags.length - 1)
+        while (genreOne == genreTwo) {
+            genreTwo = getRandomArrayIndex(genreTags);
         }
-        while (genre2 == tag) {
-            tag = getRandomInt(0, steamTags.length - 1)
+        while (genreTwo == tag) {
+            tag = getRandomArrayIndex(steamTags);
         }
 
-        var embed = new EmbedBuilder()
+        const embed = new EmbedBuilder()
             .setTitle("O estilo do jogo é:")
             .setColor("#2596be")
-            .setDescription(`**${genreTags[genre1]}**\n**${genreTags[genre2]}**\n**${steamTags[tag]}**`)
+            .setDescription(`**${genreTags[genreOne]}**\n**${genreTags[genreTwo]}**\n**${steamTags[tag]}**`);
 
         interaction.reply({ embeds: [embed] })
     }
-}
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 export default GameIdeaGenerator
