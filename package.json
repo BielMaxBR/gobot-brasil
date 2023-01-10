@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "test": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "@discordjs/builders": "^1.2.0",
     "@discordjs/rest": "^1.0.0",
     "@node-redis/json": "^1.0.2",
+    "chalk": "^5.1.2",
     "dirname-filename-esm": "^1.1.1",
     "discord-api-types": "^0.36.3",
     "discord.js": "^14.0.3",
@@ -34,6 +36,6 @@
     "redis-parser": "^3.0.0"
   },
   "nodemonConfig": {
-    "delay": 2000
+    "delay": 500
   }
 }

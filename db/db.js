@@ -1,6 +1,7 @@
 import { createClient } from 'redis'
 import dotenv from "dotenv"
 import Constants from '../util/Constants.js'
+import chalk from 'chalk'
 dotenv.config()
 
 const redisClient = createClient({
@@ -8,9 +9,9 @@ const redisClient = createClient({
 })
 
 redisClient.on('ready', async () => {
-    console.log('redis conectado')
+    console.log(chalk.greenBright('redis conectado'))
     if (process.env.TEST == true) {
-        console.log('\x1b[33m%s\x1b[0m', "***MODO TESTE***")
+        console.log(chalk.yellow("***MODO TESTE***"))
     }
     await redisClient.json.set(Constants.MESSAGES, "$", {})
 })
