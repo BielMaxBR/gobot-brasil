@@ -23,6 +23,6 @@ export default async client => {
     
         console.log(chalk.greenBright('comandos enviados pro discord com sucesso'))
     } catch(err) {
-        console.log(chalk.redBright(err))
+        console.log(chalk.redBright("ReloadCommands.js: \n", err))
     }
 }

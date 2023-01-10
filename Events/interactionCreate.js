@@ -16,7 +16,7 @@ export default class InteractionCreate {
                     const command = client.commands.get(name)
                     command.run(interaction, client)
                 } catch (err) {
-                    console.log(chalk.red(err))
+                    console.log(chalk.red("InteractionCreate: ", err))
                 }
 
                 break
