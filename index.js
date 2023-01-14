@@ -16,6 +16,10 @@ import chalk from "chalk"
 import reloadCommands from './util/reloadCommands.js'
 dotenv.config()
 
+import { createServer, get } from "https"
+
+createServer((_, res) => res.end("um futuro dashboard...")).listen(8080, _ => loop())
+
 import { dirname } from "dirname-filename-esm"
 const __dirname = dirname(import.meta)
 
