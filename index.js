@@ -18,7 +18,7 @@ dotenv.config()
 
 import { createServer, get } from "https"
 
-createServer((_, res) => res.end("um futuro dashboard...")).listen(8080)
+createServer((_, res) => res.end("um futuro dashboard...")).listen(process.env.PORT || 8080)
 
 import { dirname } from "dirname-filename-esm"
 const __dirname = dirname(import.meta)
