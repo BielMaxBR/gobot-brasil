@@ -1,0 +1,45 @@
+name: Build and deploy Gobot
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+
+      - name: npm install, build, and test
+        run: |
+          npm install
+
+      - name: 'Deploy App to Azure'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'gobot-godot-br'
+          publish-profile: ${{ secrets.PUBLISH_PROFILE }}
+
+      - name: 'Login to azure'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: 'Deploy app settings'
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: 'gobot-godot-br'
+          app-settings-json: '[
+            {"name":"CLIENTID","value":"${{ secrets.CLIENTID }}", "slotSetting": false}
+            {"name":"REDIS_HOST","value":"${{ secrets.REDIS_HOST }}", "slotSetting": false}
+            {"name":"SERVERID","value":"${{ secrets.SERVERID }}", "slotSetting": false}
+            {"name":"TOKEN","value":"${{ secrets.TOKEN }}"", "slotSetting": false}
+          ]'
