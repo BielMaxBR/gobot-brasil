@@ -38,8 +38,8 @@ jobs:
         with:
           app-name: 'gobot-godot-br'
           app-settings-json: '[
-            {"name":"CLIENTID","value":"${{ secrets.CLIENTID }}", "slotSetting": false}
-            {"name":"REDIS_HOST","value":"${{ secrets.REDIS_HOST }}", "slotSetting": false}
-            {"name":"SERVERID","value":"${{ secrets.SERVERID }}", "slotSetting": false}
+            {"name":"CLIENTID","value":"${{ secrets.CLIENTID }}", "slotSetting": false},
+            {"name":"REDIS_HOST","value":"${{ secrets.REDIS_HOST }}", "slotSetting": false},
+            {"name":"SERVERID","value":"${{ secrets.SERVERID }}", "slotSetting": false},
             {"name":"TOKEN","value":"${{ secrets.TOKEN }}"", "slotSetting": false}
           ]'
